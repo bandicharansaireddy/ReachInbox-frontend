@@ -78,7 +78,7 @@ Bull Board requires the HTTP Basic Auth credentials configured through `BULL_BOA
 
 ## Environment configuration
 
-All settings are read by the backend from the repository-root `.env`. Defaults below are for local development. Replace development secrets before using a shared or production environment.
+Backend settings are read from the repository-root `.env`. `VITE_API_URL` is consumed by the frontend during its build. Defaults below are for local development; replace development secrets before using a shared or production environment.
 
 | Variable | Purpose | Local default / notes |
 |---|---|---|
@@ -97,11 +97,12 @@ All settings are read by the backend from the repository-root `.env`. Defaults b
 | `GOOGLE_REDIRECT_URI` | Google OAuth callback | `http://localhost:4000/api/auth/google/callback` |
 | `JWT_SECRET` | Signs the HTTP-only app session and Slack OAuth state | Replace the sample value with a long random secret |
 | `FRONTEND_URL` | OAuth callback return destination | `http://localhost:5173` |
+| `VITE_API_URL` | Frontend build-time API origin (public; no secrets) | `http://localhost:4000` |
 | `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET` | Slack OAuth credentials | Required to connect a Slack workspace |
 | `SLACK_REDIRECT_URI` | Slack OAuth callback | `http://localhost:4000/api/slack/oauth/callback` |
 | `BULL_BOARD_USERNAME`, `BULL_BOARD_PASSWORD` | Bull Board HTTP Basic Auth | Set both to enable access |
 
-The Vite frontend currently calls the local API at `http://localhost:4000/api`; configure the local services and callback URLs accordingly. OAuth redirect URIs must exactly match the values registered with Google and Slack.
+The frontend reads `VITE_API_URL` at build time as the backend origin (for example, `http://localhost:4000` locally or the deployed API origin in hosting settings). It appends `/api` for API requests and uses `/health` for the service-status link. This variable is public frontend configuration, so never put secrets in it. OAuth redirect URIs must exactly match the values registered with Google and Slack.
 
 ## Ethereal SMTP setup
 

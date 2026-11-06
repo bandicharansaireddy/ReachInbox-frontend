@@ -19,7 +19,8 @@ type DashboardEmail = {
 };
 type SenderSummary = { id: string; displayName: string; emailAddress: string; status?: string };
 
-const emailApiUrl = 'http://localhost:4000/api';
+const backendOrigin = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/$/, '');
+const emailApiUrl = `${backendOrigin}/api`;
 
 function formatDate(value: string | null) {
   if (!value) return '—';
@@ -85,7 +86,7 @@ function LoginPage({ onGoogleLogin, loading }: { onGoogleLogin: () => void; load
           </button>
           <div className="login-divider"><span /><span>Secure sign-in</span><span /></div>
           <p className="login-footnote">Your account is protected with Google sign-in. We’ll never send anything without your say-so.</p>
-          <a href="http://localhost:4000/health" target="_blank" rel="noreferrer" className="health-link"><span className="health-dot" /> Check service status</a>
+          <a href={`${backendOrigin}/health`} target="_blank" rel="noreferrer" className="health-link"><span className="health-dot" /> Check service status</a>
         </div>
         <div className="login-main-footer">A calmer way to keep in touch <span>✳</span></div>
       </section>
