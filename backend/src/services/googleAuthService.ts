@@ -158,12 +158,16 @@ export function buildGoogleLogoutUrl() {
 export function buildCookieHeader({
   token,
   maxAgeSeconds = 60 * 60 * 24 * 7,
+  secure = env.NODE_ENV === 'production',
 }: {
   token: string;
   maxAgeSeconds?: number;
+  secure?: boolean;
 }) {
   const expires = new Date(Date.now() + maxAgeSeconds * 1000);
-  return `reachinbox_session=${token}; HttpOnly; Path=/; SameSite=Lax; Expires=${expires.toUTCString()}`;
+  const sameSite = secure ? 'None' : 'Lax';
+  const secureAttribute = secure ? '; Secure' : '';
+  return `reachinbox_session=${token}; HttpOnly; Path=/; SameSite=${sameSite}${secureAttribute}; Expires=${expires.toUTCString()}`;
 }
 
 export function buildStateToken() {
