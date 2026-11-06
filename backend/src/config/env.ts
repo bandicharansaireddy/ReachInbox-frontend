@@ -13,6 +13,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().default('postgresql://postgres:postgres@localhost:5432/reachinbox'),
   REDIS_URL: z.string().default('redis://localhost:6379'),
   ELASTICSEARCH_URL: z.string().default('http://localhost:9200'),
+  ELASTICSEARCH_API_KEY: z.string().optional(),
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(20).default(1),
   EMAIL_FROM: z.string().default('noreply@reachinbox.local'),
   SMTP_HOST: z.string().default('smtp.ethereal.email'),

@@ -87,6 +87,7 @@ Backend settings are read from the repository-root `.env`. `VITE_API_URL` is con
 | `DATABASE_URL` | PostgreSQL connection | `postgresql://postgres:postgres@localhost:5432/reachinbox` |
 | `REDIS_URL` | BullMQ and shared rate-limit connection | `redis://localhost:6379` |
 | `ELASTICSEARCH_URL` | Email search index | `http://localhost:9200` |
+| `ELASTICSEARCH_API_KEY` | Optional credential for a protected Elasticsearch service | Leave blank for local Docker; configure only in the backend and worker host settings |
 | `WORKER_CONCURRENCY` | Jobs processed concurrently by each worker | `1`; allowed range is 1–20 |
 | `EMAIL_FROM` | SMTP From address used by the worker | `noreply@reachinbox.local` |
 | `SMTP_HOST` | SMTP host | `smtp.ethereal.email` |

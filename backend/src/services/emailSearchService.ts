@@ -20,8 +20,11 @@ export type EmailSearchDocument = {
   createdAt: string;
 };
 
-export function createEmailSearchClient({ node = env.ELASTICSEARCH_URL } = {}) {
-  return new Client({ node });
+export function createEmailSearchClient({
+  node = env.ELASTICSEARCH_URL,
+  apiKey = env.ELASTICSEARCH_API_KEY,
+} = {}) {
+  return new Client({ node, ...(apiKey ? { auth: { apiKey } } : {}) });
 }
 
 export function serializeEmailForIndex(email: {
